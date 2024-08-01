@@ -8,6 +8,26 @@ const app = new Hono<{
   }
 }>()
 
+// middleware
+app.use('/api/v1/blog/*', async (c, next) => {
+  // get the header
+  // verify the header
+  // if the header is correct, we need to proceed
+  // if not, return 403 status code
+
+  const header = c.req.header("authorization") || "";
+
+  // @ts-ignore
+  const response = await verify(header, c.env.JWT_SECRET)
+  if (response.id) {
+    next()
+  } else {
+    c.status(403)
+    return c.json({ error: "unauthorized"})
+  }
+})
+
+//Signup 
 app.post('/api/v1/signup', async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
@@ -31,6 +51,7 @@ app.post('/api/v1/signup', async (c) => {
 })
 
 
+//Signin
 app.post('/api/v1/signin', async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env?.DATABASE_URL ,
