@@ -1,4 +1,4 @@
-      ##The stack
+The stack--
 Building Writoo a bloging site in the following stack
 
    1. React in the frontend
