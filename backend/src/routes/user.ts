@@ -40,7 +40,7 @@ userRouter.post('/signup', async (c) => {
   })
   
   //Signin
-  app.post('/api/v1/signin', async (c) => {
+  userRouter.post('/api/v1/signin', async (c) => {
     const body = await c.req.json();
     const prisma = new PrismaClient({
       datasourceUrl: c.env.DATABASE_URL,
